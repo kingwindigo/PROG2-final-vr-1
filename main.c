@@ -4,7 +4,7 @@
 
 #define FALSE 0
 #define TRUE 1
-
+    
 #define MAX_PROPERTY_NAME 50
 #define MAX_CONTACT_NO 20
 #define MAX_ADDRESS 50
@@ -191,7 +191,7 @@ int main() {
             default:
                 printf("Invalid choice\n");
         }
-    } while (choice != 5);
+    } while (choice != 6); //changed this to 6 since error -------------------------------------------------------------------------------------May 7 9:00PM
 
     return 0;
 }
@@ -292,15 +292,47 @@ void getDescription(BNB lis[], int index) {
     }
 }
 
+//Needs to be tested ---------------------------------------------------------------------------------------------------------------------------------------------May 7 9:00PM
 void getAmenities(BNB lis[], int index) {
     char response;
-    
+        
     printf("Does the property have hot shower (Y/N)? ");
     scanf(" %c", &response);
     lis[index].amenities.isHotShower = (toupper(response) == 'Y') ? TRUE : FALSE;
-
+	
+	printf("Does the property have AC? (Y/N)? ");
+    scanf(" %c", &response);
+    lis[index].amenities.isAC = (toupper(response) == 'Y') ? TRUE : FALSE;
     
-    fflush(stdin);
+    printf("Does the property have Free Parking? (Y/N)? ");
+    scanf(" %c", &response);
+    lis[index].amenities.isFreeParking = (toupper(response) == 'Y') ? TRUE : FALSE;
+    
+    printf("Does the property have Guest Supplies?  (Y/N)? ");
+    scanf(" %c", &response);
+    lis[index].amenities.isGuestSuppliesAvail = (toupper(response) == 'Y') ? TRUE : FALSE;
+    
+    printf("Does the property have Free Wifi? (Y/N)? ");
+    scanf(" %c", &response);
+    lis[index].amenities.isFreeWifi = (toupper(response) == 'Y') ? TRUE : FALSE;
+    
+    printf("Is the property Animal friendly? (Y/N)? ");
+    scanf(" %c", &response);
+    lis[index].amenities.isAnimalFriendly = (toupper(response) == 'Y') ? TRUE : FALSE;
+    
+    printf("Is the service Free? (Y/N)? ");
+    scanf(" %c", &response);
+    lis[index].amenities.isServiceFree = (toupper(response) == 'Y') ? TRUE : FALSE;
+    
+    printf("Is Kitchen ware available? (Y/N)? ");
+    scanf(" %c", &response);
+    lis[index].amenities.isKitchenWareAvail = (toupper(response) == 'Y') ? TRUE : FALSE;
+    
+    printf("Is washing machine available? (Y/N)? ");
+    scanf(" %c", &response);
+    lis[index].amenities.isWashingMachineAvail = (toupper(response) == 'Y') ? TRUE : FALSE;
+    
+    
 }
 
 void displayBnB(BNB lis[], int index) {
@@ -401,11 +433,32 @@ void findIndex(BNB lis[]){
     displayBnB(lis, index - 1);
 }
 
+//needs to be tested -------------------------------------------------------------------------------------------------------------------------------------------- may 7, 9:00PM
 void findPrice(BNB lis[]) {
+	int count = 0, found;
     float minPrice, maxPrice;
     printf("Enter price Range to find:");
     printf("\nMinimum Price: ");
     printf("Maximum Price: ");
+    
+    printf("\nProperties within price range %.2f - %.2f:\n", minPrice, maxPrice);
+    
+    for (int i = 0; i < count; i++) {
+        if (lis[i].price >= minPrice && lis[i].price <= maxPrice) {
+            printf("Property #%d\n", i + 1);
+            printf("City: %s\n", lis[i].address.city);
+            printf("Name: %s\n", lis[i].propertyName);
+            printf("Owner: %s\n", lis[i].propertyOwner);
+            printf("Contact: %s\n", lis[i].contactNumber);
+            printf("Price: %.2f\n", lis[i].price);
+            printf("-------------------------\n");
+            found = 1;
+        }
+    }
+
+    if (!found) {
+        printf("No properties found in that price range.\n");
+    }
 }
 
 void initializeDefaultListings(BNB lis[]) {
